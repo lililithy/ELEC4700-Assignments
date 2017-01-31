@@ -29,7 +29,7 @@ vy = randn(np,1)*vth/sqrt(2);
 
 dt = L/100/vth;
 
-for t = 1:100
+for t = 1:300
     
     %change in distance, ie how much an electron moves in x & y direction
     dx = dt*vx;
@@ -71,9 +71,6 @@ for t = 1:100
     % Plotting temperature 
     Temp = (vth.^2)*m/(2*K);
   
-%     figure;
-%     plot(t, Temp)
-    
     pause(0.1)
 end 
 
@@ -81,7 +78,3 @@ end
 vavg = sqrt(vx.^2 + vy.^2);
 figure;
 hist(vavg, 50);
-
-
-
-
