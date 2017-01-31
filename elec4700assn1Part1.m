@@ -7,7 +7,7 @@ W = 100e-9;
 L = 200e-9;
 
 %1000 electrons in the box (sometimes set to much lower value for testing)
-np = 10;
+np = 1000;
 
 tau = 0.2e-12;
 K = 1.38e-23;
@@ -20,14 +20,6 @@ yp = rand(np, 1)*W;
 
 plot(xp, yp, '.r')
 hold on
-line([0.7999e-7 0.80001e-7],[0 0.4e-7]) %better way?
-line([1.1999e-7 1.2001e-7],[0 0.4e-7])
-line([0.8e-7 1.2e-7], [0.3999e-7 0.4001e-7])
-
-line([0.7999e-7 0.80001e-7],[0.6e-7 1e-7])
-line([1.1999e-7 1.2001e-7],[0.6e-7 1e-7])
-line([0.8e-7 1.2e-7], [0.5999e-7 0.60001e-7])
-
 %make them move; generating random velocities
 vth = sqrt(2*K*T/m);
 
@@ -60,43 +52,13 @@ for t = 1:100
     ly = y < 0;
     vy(ly) = -vy(ly);    
     
-    % boxes
-    % bottom box, sides
-    bbs = ((x > 0.8e-7 & x < 1.2e-7) & y < 0.4e-7);
-    if(xp < x)
-        vx(bbs) = - vx(bbs);
-    end
-    % bottom box, top
-%     bbt = ((x < 0.8e-7 & x > 1.2e-7) & y > 0.4e-7);
-%     vy(bbt) = - vy(bbt);
-     
-    %top box, sides
-%     tbs = ((x == 0.8e-7 | x== 1.2e-7) & y > 0.8e-7);
-%     vx(tbs) = - vx(tbs);
-    %top box, bottom
-%     tbb = ((x < 0.8e-7 & x > 1.2e-7) & y > 0.8e-7);
-%     vy(tbb) = - vy(tbb);
-        
-    % Scattering Code begins
-    Pscat = 1 - exp(-dt/tau);
-
-    if (Pscat > rand())
-        %assign new v for a particle where Pscat is greater than random value
-        vx = randn(np,1)*vth/sqrt(2);
-        vy = randn(np,1)*vth/sqrt(2);
-    end    
-       
     %plotting trajectories 
     plot (x, y, '.r')
     
+    %Temperature plots
+   
     xp = x;
     yp = y;
-    
-    % Plotting temperature 
-    Temp = (vth.^2)*m/(2*K);
-  
-%     figure;
-%     plot(t, Temp)
     
     pause(0.1)
 end 
@@ -107,4 +69,4 @@ figure;
 hist(vavg, 50);
 
 
-    
+
